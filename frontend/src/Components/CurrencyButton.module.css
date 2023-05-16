@@ -1,8 +1,24 @@
 .buttonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 24px;
 }
 
 .currencyButtonActive {
+    font-size: 16px;
+    background-color: #9e31d1;
+    color: #1bcf75;
+    border-radius: 8px;
+    padding: 8px;
+    border: 0.5;
 }
 
 .currencyButtonDefault {
+    font-size: 16px;
+    background-color: transparent;
+    border-radius: 8px;
+    padding: 8px;
+    border: 0.5;
+    margin: 5px;
 }

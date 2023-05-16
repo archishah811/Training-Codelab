@@ -11,8 +11,8 @@ import styles from "./TimeCurrencyCard.module.css"
 :type:
     list[{dict}]
 */
-function TimeCurrencyCard ({currency,showData}) {
-    // ToDo 10.2.1
+function TimeCurrencyCard({ currency, showData }) {
+    // ToDo 10.2.1 
     /* 
     set price text color
     :index:
@@ -25,6 +25,21 @@ function TimeCurrencyCard ({currency,showData}) {
         CSS  Object
     */
     const priceColor = (index) => {
+        // index is 0
+        if (index === 0) {
+            return styles.priceContainerEqual;
+        }
+        // index > 0
+        else if (index > 0) {
+            if (showData[index - 1].price > showData[index].price) {
+                return styles.priceContainerDown;
+            }
+            else if (showData[index - 1].price < showData[index].price) {
+                return styles.priceContainerUp;
+            } else {
+                return styles.priceContainerEqual;
+            }
+        }
     }
 
     // ToDo 10.2.2
@@ -40,19 +55,36 @@ function TimeCurrencyCard ({currency,showData}) {
         string
     */
     const arrowSign = (index) => {
+        if (index === 0) {
+            return '-';
+        }
+        // index > 0
+        else if (index > 0) {
+            if (showData[index - 1].price > showData[index].price) {
+                return "↓";
+            }
+            else if (showData[index - 1].price < showData[index].price) {
+                return "↑";
+            } else {
+                return '-';
+            }
+        }
     }
-    
+
+    console.log(showData);
     // ToDo 10.2.3
     return (
-        <>
-        {/* reference for .map https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map */}
+        <div style={{ padding: "24px", display: "flex", flexWrap: "wrap" }}>
+            {/* reference for .map https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map */}
             {showData.map((d, index) => (
-                <>
-                {/* use {currency === 'USD' ? "$" : *other currency sign*} to set the currency notation  
+                <div className={styles.cardContainer} key={index}>
+                    {/* use {currency === 'USD' ? "$" : *other currency sign*} to set the currency notation  
                 reference https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator */}
-                </>
-            ))} 
-        </>      
+                    <p className={priceColor(index)}>{currency === 'USD' ? "$" : "Rs"} {d.price}{arrowSign(index)}</p>
+                    <p>{d.timestamp}</p>
+                </div>
+            ))}
+        </div>
     );
 
 }

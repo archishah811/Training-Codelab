@@ -10,7 +10,7 @@ class DatabaseConnection:
         class constructor: generates a database connection object
         """
         self.__db = create_database()
-
+    # print ( "before insert function")
     def insert_timestamp(self, bitcoin: BitcoinTimestamp):
         """
         inserts a bitcoin timestamp into the database
@@ -34,13 +34,18 @@ class DatabaseConnection:
         try:
             # TODO (5.3.2)  
             # insert sql query
+            # print(bitcoin.timestamp)
+            query = f"INSERT INTO '{TABLE_NAME}'(timestamp, price) VALUES(?, ?)"
+            VALUES = (bitcoin.timestamp, bitcoin.price)
 
             # execute sql query
+            cursor.execute(query,VALUES)
 
             # commit to db
+            self.__db.commit()
 
             # close
-
+            cursor.close()
             return True
         except Exception as e:
             print(e)
@@ -60,20 +65,28 @@ class DatabaseConnection:
             
             # TODO (5.3.1)
             # get cursor
-            
+            cursor = self.__db.cursor()
             
             # insert sql query
-             
+            query = "SELECT * FROM '{}';".format(TABLE_NAME)
 
             # execute sql query
-           
+            cursor.execute(query)
 
             # fetch all results obtained
-            
-            # close
+            res = cursor.fetchall()
+
 
             # convert results to BitcoinTimestamp objects and append to output
+            for listelement in res:
+                print(listelement[0],listelement[1])
+                dbc = BitcoinTimestamp(listelement[0],listelement[1])
+                print(dbc)
+                output.append(dbc)
 
+            # close
+            cursor.close()
+                
             return output
         except Error as e:
             print(e)

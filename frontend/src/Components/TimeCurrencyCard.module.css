@@ -1,14 +1,31 @@
 .cardContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #e19b45;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 5px 3px;
+
+    
 }
 
 .priceContainerUp {
+    color: green;
 }
 
 .priceContainerDown {
+    color: red;
 }
 
 .priceContainerEqual {
+    color: white;
 }
 
 .timeContainer {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
